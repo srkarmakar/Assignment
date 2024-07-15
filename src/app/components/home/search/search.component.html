@@ -1,0 +1,12 @@
+<div class="col-md-12 flex items-center">
+    <mat-form-field appearance="outline" subscriptSizing="dynamic" class="example-form-field w-50 mx-3">
+        <input matInput type="text" (focusout)="searchOnFocusOut($event)" (keypress)="searchOnTyping($event)"
+            [(ngModel)]='value'>
+        @if (value) {
+        <button matSuffix mat-icon-button aria-label="Clear" (click)="value=''" (click)="searchOnClick()">
+            <mat-icon>close</mat-icon>
+        </button>
+        }
+    </mat-form-field>
+    <button color="primary" mat-raised-button class="p-4" (click)="searchOnClick()">Search</button>
+</div>
