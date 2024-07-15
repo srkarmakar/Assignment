@@ -7,7 +7,7 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
   template: `
   <div class="col-12 div-design py-3 my-2">
-  <a class="text-violet-800 font-bold p-3" routerLink=''>Comer*AmiGos</a>
+  <a class="text-violet-800 font-bold p-3" routerLink=''>Product Management</a>
   </div>
   `,
   styles: `
