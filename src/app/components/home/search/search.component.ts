@@ -19,15 +19,12 @@ export class SearchComponent {
 
   searchOnFocusOut(event: any) {    
     this.value = event.target.value;
-    //console.log("On Focus Out Event", event.target.value);
     this.searchData.emit(this.value)
   }
   searchOnTyping(event: any) {
-    //console.log("On Typing Event", event.target.value);
     this.searchData.emit(this.value)
   }
   searchOnClick() {
-    console.log("On Click Event");
     this.searchData.emit(this.value)
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ProductServiceService } from '../../../services/product-service.service';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Product } from '../../../model/product';
@@ -17,11 +17,24 @@ export class ProductDetailsComponent implements OnInit {
     private productService: ProductServiceService,
     public activatedRoute: ActivatedRoute
   ) { }
-  product!: Product;
+  products : Product[] = [];
+  placeholderSrc: string = 'src/assets/placeholder.jpeg'; // URL of the placeholder image
+  fallbackSrc: string = 'src/assets/fallback.png'; // URL of the fallback image
+
+  imageSrc: string = '';
+  isLoading: boolean = true;
   ngOnInit(): void {
     let productID = this.activatedRoute.snapshot.params["id"]
-    this.productService.getProductDetails(productID).subscribe(result =>
-      this.product = result
-    )
+    this.productService.getProducts().subscribe(result =>{
+      this.products = result.filter(prod => prod.id.includes(productID));
+      
+    })     
+  }
+  onImageLoad() {
+    this.isLoading = false;
+  }
+
+  onImageError() {
+    this.imageSrc = this.fallbackSrc;
   }
 }

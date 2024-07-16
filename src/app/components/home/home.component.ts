@@ -4,13 +4,14 @@ import { CommonModule } from '@angular/common';
 import { SearchComponent } from './search/search.component';
 import { ProductServiceService } from '../../services/product-service.service';
 import { Product } from '../../model/product';
-import { Router, Routes } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
+import { HeaderComponent } from '../header/header.component';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ProductCardComponent, CommonModule, SearchComponent],
+  imports: [ProductCardComponent, CommonModule, SearchComponent, HeaderComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -22,20 +23,17 @@ export class HomeComponent implements OnInit {
   filteredProducts: Product[] = [];
   router = inject(Router)
   ngOnInit(): void {
-    this.productService.getProducts().subscribe((result) => {
-      //console.log(result);
+    this.productService.getProducts().subscribe(result => {
       this.products = result;
       this.filteredProducts = this.products;
     })
   }
 
   viewProductDetails(event: any) {
-    //console.log('ViewParent', event);
-    this.router.navigateByUrl('/product/' + event)
+    this.router.navigateByUrl('product/' + event)
   }
 
   searchResults(event: any) {
-    //console.log("Search Result", event);
     if (event) {
       this.filteredProducts = this.products.filter(product => product.title.toLocaleLowerCase().includes(event.toLocaleLowerCase()))
     } else {
@@ -44,7 +42,6 @@ export class HomeComponent implements OnInit {
   }
 
   searchResultOnClick(search: string) {
-    //console.log('Home Click', search);
     if (search) {
       this.filteredProducts = this.products.filter(product => product.title.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
     } else {
